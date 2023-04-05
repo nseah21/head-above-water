@@ -18,11 +18,20 @@ class Utility {
     public static final Scenario SCENARIO_ONE = new Scenario(
         "Test",
         new Update(MONEY, TRANSLATE, -1000),
-        new Policy("Policy 1", "roblox becomes a core subject in sch", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, APPROVAL, 2)),
-        new Policy("Policy 2", "ur gf leaves u", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, APPROVAL, 2)),
-        new Policy("Policy 3", "something has happened", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, APPROVAL, 2)),
-        new Policy("Policy 4", "the chicken rice stall ran out of chili", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, APPROVAL, 2))
+        new Policy("Policy 1", "roblox becomes a core subject in sch", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, 2)),
+        new Policy("Policy 2", "ur gf leaves u", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, 2), new FutureUpdate(new Update(POPULATION, SCALE, 2), 1)),
+        new Policy("Policy 3", "something has happened", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, 2)),
+        new Policy("Policy 4", "the chicken rice stall ran out of chili", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, 2))
     );
 
-    public static final List<Scenario> SCENARIO_LIST = new ArrayList<>(List.of(SCENARIO_ONE));
+    public static final Scenario SCENARIO_TWO = new Scenario(
+        "Test",
+        new Update(MONEY, TRANSLATE, -1000),
+        new Policy("Policy 1", "hehe jiraiya vs pain", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, 2)),
+        new Policy("Policy 2", "ur bf leaves u", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, 2), new FutureUpdate(new Update(POPULATION, SCALE, 2), 1)),
+        new Policy("Policy 3", "something has NOT happened", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, 2)),
+        new Policy("Policy 4", "the duck rice stall ran out of chili", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, 2))
+    );
+
+    public static final List<Scenario> SCENARIO_LIST = new ArrayList<>(List.of(SCENARIO_ONE, SCENARIO_TWO));
 }

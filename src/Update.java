@@ -3,7 +3,7 @@
  * 
  * The execute method in the Logic class should take in an array of updates.
  */
-class Update {
+class Update extends GeneralUpdate {
     private String type;
     private String operation;
     private int amount;
@@ -12,6 +12,11 @@ class Update {
         this.type = type;
         this.operation = operation;
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return this.type + (this.operation == Utility.TRANSLATE ? " was changed by " : " was multiplied by a factor of ") + this.amount + (this.operation == Utility.TRANSLATE ? "units" : ""); 
     }
 
     public String getType() {

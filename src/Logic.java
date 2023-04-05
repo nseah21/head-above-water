@@ -37,6 +37,7 @@ class Logic {
     public void start(Scheduler scheduler) {
         for (Scenario scenario : scenarios) {
             announceStart();
+            scheduler.houseKeeping();
             System.out.println(scenario);
             while (scanner.hasNextLine()) {
                 String optionSelected = scanner.nextLine().toUpperCase();
@@ -45,7 +46,7 @@ class Logic {
                     continue;
                 } else {
                     System.out.println(String.format("You have selected: %s", scenario.getPolicy(convertSelection(optionSelected))));
-                    execute(scenario.getPolicy(convertSelection(optionSelected)).getUpdates());
+                    execute(scenario.getPolicy(convertSelection(optionSelected)).getUpdates(), scheduler);
                     System.out.println(scenario.getPolicy(convertSelection(optionSelected)).getEffect());
                     break;
                 }
@@ -54,36 +55,42 @@ class Logic {
         }
     }
 
-    public void execute(List<Update> updates) {
-        for (Update update : updates) {
-            String type = update.getType();
-            String operation = update.getOperation();
-            int amount = update.getAmount();
+    public void execute(List<GeneralUpdate> updates, Scheduler scheduler) {
+        for (GeneralUpdate generalUpdate : updates) {
+            if (generalUpdate instanceof FutureUpdate) {
+                scheduler.addToQueue((FutureUpdate) generalUpdate);
+            } else {
+                Update update = (Update) generalUpdate;
+                String type = update.getType();
+                String operation = update.getOperation();
+                int amount = update.getAmount();
 
-            switch (type) {
-                case Utility.MONEY:
-                    update(moneyStock, operation, amount);
-                    break;
-                case Utility.APPROVAL:
-                    update(approvalStock, operation, amount);
-                    break;
-                case Utility.FLOOD_PROTECTION_INFRASTRUCTURE:
-                    update(floodProtectionInfrastructureStock, operation, amount);
-                    break;
-                case Utility.POPULATION:
-                    update(populationStock, operation, amount);
-                    break;
-                case Utility.GREENERY_LEVEL:
-                    update(greeneryLevelVariable, operation, amount);
-                    break;
-                case Utility.RIVER_CAPACITY:
-                    update(riverCapacityVariable, operation, amount);
-                    break;
-                case Utility.LAND_SUBSIDENCE:
-                    update(landSubsidenceVariable, operation, amount);
-                    break;
-                default:
-                    break;
+                switch (type) {
+                    case Utility.MONEY:
+                        update(moneyStock, operation, amount);
+                        break;
+                    case Utility.APPROVAL:
+                        update(approvalStock, operation, amount);
+                        break;
+                    case Utility.FLOOD_PROTECTION_INFRASTRUCTURE:
+                        update(floodProtectionInfrastructureStock, operation, amount);
+                        break;
+                    case Utility.POPULATION:
+                        update(populationStock, operation, amount);
+                        break;
+                    case Utility.GREENERY_LEVEL:
+                        update(greeneryLevelVariable, operation, amount);
+                        break;
+                    case Utility.RIVER_CAPACITY:
+                        update(riverCapacityVariable, operation, amount);
+                        break;
+                    case Utility.LAND_SUBSIDENCE:
+                        update(landSubsidenceVariable, operation, amount);
+                        break;
+                    default:
+                        break;
+                }
+
             }
         }
     }

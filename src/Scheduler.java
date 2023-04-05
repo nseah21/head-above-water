@@ -8,12 +8,17 @@ class Scheduler {
 
     public Scheduler(Logic logic) {
         this.queue = new PriorityQueue<>();
-        this.logic = new Logic();
+        this.logic = logic;
     }
 
     public void houseKeeping() {
+        System.out.println("Doing housekeeping...");
         tick();
         execute();
+    }
+
+    public void addToQueue(FutureUpdate futureUpdate) {
+        queue.add(futureUpdate);
     }
 
     private void tick() {
@@ -21,10 +26,16 @@ class Scheduler {
     }
 
     private void execute() {
-        List<Update> updates = new ArrayList<>();
-        while (queue.peek().getCountdown() == 0) {
+        List<GeneralUpdate> updates = new ArrayList<>();
+        while (!queue.isEmpty() && queue.peek().getCountdown() == 0) {
             updates.add(queue.poll().getUpdate());
         }
-        logic.execute(updates);
+        logic.execute(updates, this);
+        System.out.println(queue);
+        for (GeneralUpdate update : updates) {
+            Update u = (Update) update;
+            System.out.println("Long-term update executed from scheduler:");
+            System.out.println(u.toString());
+        }
     }
 }

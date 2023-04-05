@@ -5,9 +5,9 @@ import java.util.List;
 class Policy {
     private String description;
     private String effect;
-    private List<Update> updates;
+    private List<GeneralUpdate> updates;
 
-    public Policy(String description, String effect, Update... updates) {
+    public Policy(String description, String effect, GeneralUpdate... updates) {
         this.description = description;
         this.effect = effect;
         this.updates = new ArrayList<>(Arrays.asList(updates));
@@ -22,7 +22,7 @@ class Policy {
         return this.effect;
     }
 
-    public List<Update> getUpdates() {
+    public List<GeneralUpdate> getUpdates() {
         return this.updates;
     }
 }

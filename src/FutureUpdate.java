@@ -1,10 +1,15 @@
-class FutureUpdate implements Comparable<FutureUpdate> {
+class FutureUpdate extends GeneralUpdate implements Comparable<FutureUpdate>  {
     private Update update;
     private int countdown;
 
     public FutureUpdate(Update update, int countdown) {
         this.update = update;
         this.countdown = countdown;        
+    }
+
+    @Override
+    public String toString() {
+        return this.update.toString();
     }
 
     @Override
