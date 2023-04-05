@@ -1,17 +1,9 @@
-class Stock {
-    private int value;
+class Stock extends Value {
     private int threshold;
 
     public Stock(int value, int threshold) {
-        this.value = value;
-    }
-
-    public void scale(int multiplier) {
-        this.value = this.value * multiplier;
-    }
-
-    public void translate(int offset) {
-        this.value = this.value + offset;
+        super(value);
+        this.threshold = threshold;
     }
 
     public boolean isValid() {
