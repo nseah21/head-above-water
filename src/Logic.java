@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +13,8 @@ class Logic {
     private Variable greeneryLevelVariable; 
     private Variable riverCapacityVariable; 
     private Variable landSubsidenceVariable; 
+
+    private List<Stock> stocks;
     
     public void init() {
         moneyStock = new Stock(10000, 0);
@@ -21,10 +24,11 @@ class Logic {
         greeneryLevelVariable = new Variable(0);
         riverCapacityVariable = new Variable(0);
         landSubsidenceVariable = new Variable(0);
+        stocks = new ArrayList<>(List.of(moneyStock, approvalStock, floodProtectionInfrastructureStock, populationStock));
     }
 
-    public void start() {
-
+    public void start(Scheduler scheduler) {
+        
     }
 
     public void execute(List<Update> updates) {
@@ -68,6 +72,14 @@ class Logic {
             value.translate(amount);
         } else {
             // No update occurred.
+        }
+    }
+
+    private void checkLoseCondition() {
+        for (Stock stock : stocks) {
+            if (!stock.isValid()) {
+                // LOSE
+            }
         }
     }
 }
