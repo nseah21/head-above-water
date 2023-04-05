@@ -7,9 +7,9 @@ class Policy {
     private String effect;
     private List<Update> updates;
 
-    public Policy
-(String description, Update... updates) {
+    public Policy(String description, String effect, Update... updates) {
         this.description = description;
+        this.effect = effect;
         this.updates = new ArrayList<>(Arrays.asList(updates));
     }
 

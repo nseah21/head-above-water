@@ -12,4 +12,9 @@ abstract class Value {
     public void translate(int offset) {
         this.value = this.value + offset;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(value);
+    }
 }

@@ -15,6 +15,10 @@ class Logic {
     private Variable landSubsidenceVariable; 
 
     private List<Stock> stocks;
+    private List<Variable> variables;
+    private List<Scenario> scenarios;
+
+    private int round;
     
     public void init() {
         moneyStock = new Stock(10000, 0);
@@ -25,10 +29,29 @@ class Logic {
         riverCapacityVariable = new Variable(0);
         landSubsidenceVariable = new Variable(0);
         stocks = new ArrayList<>(List.of(moneyStock, approvalStock, floodProtectionInfrastructureStock, populationStock));
+        variables = new ArrayList<>(List.of(greeneryLevelVariable, riverCapacityVariable, landSubsidenceVariable));
+        scenarios = Utility.SCENARIO_LIST;
+        round = 0;
     }
 
     public void start(Scheduler scheduler) {
-        
+        for (Scenario scenario : scenarios) {
+            announceStart();
+            System.out.println(scenario);
+            while (scanner.hasNextLine()) {
+                String optionSelected = scanner.nextLine().toUpperCase();
+                if (isInvalidSelection(optionSelected)) {
+                    System.out.println("Please enter an option that is either A, B, C, or D.");
+                    continue;
+                } else {
+                    System.out.println(String.format("You have selected: %s", scenario.getPolicy(convertSelection(optionSelected))));
+                    execute(scenario.getPolicy(convertSelection(optionSelected)).getUpdates());
+                    System.out.println(scenario.getPolicy(convertSelection(optionSelected)).getEffect());
+                    break;
+                }
+            }
+            announceEnd();
+        }
     }
 
     public void execute(List<Update> updates) {
@@ -80,6 +103,40 @@ class Logic {
             if (!stock.isValid()) {
                 // LOSE
             }
+        }
+    }
+
+    private boolean isInvalidSelection(String optionSelected) {
+        return optionSelected.length() > 1 || optionSelected.charAt(0) < 65 || optionSelected.charAt(0) > 67; 
+    }
+
+    private int convertSelection(String optionSelected) {
+        char choice = optionSelected.charAt(0);
+        return choice % 'A';
+    }   
+
+    private void announceStart() {
+        System.out.printf("Welcome to round %d!\n", round);
+        System.out.println();
+        displayValues();
+        System.out.println();
+    }   
+
+    private void announceEnd() {
+        System.out.printf("We have come to the end of round %d!\n", round);
+        System.out.println();
+        displayValues();
+        System.out.println();
+        round = round + 1;
+    }   
+
+    private void displayValues() {
+        System.out.println("Here are the stocks and variables you need to manage.");
+        for (int i = 0; i < stocks.size(); i++) {
+            System.out.println(String.format("%s: %s", Utility.VALUES.get(i), stocks.get(i)));
+        }
+        for (int i = stocks.size(); i < Utility.VALUES.size(); i++) {
+            System.out.println(String.format("%s: %s", Utility.VALUES.get(i), variables.get(i - stocks.size())));
         }
     }
 }
