@@ -18,7 +18,7 @@ class Utility {
     public static final String SCALE  = "s";
     public static final String TRANSLATE  = "t";
 
-    public static final int LAST_ROUND = 10;
+    public static final int LAST_ROUND = 11;
 
     // Scenario 1: Political Pressure
 
