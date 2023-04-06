@@ -22,8 +22,7 @@ class Scenario {
     }
 
     private String getPrompt() {
-        List<String> prompts = List.of("What will you do?");
-        return "\nWhat will you do?\n";
+        return "\n\n...What will you do?";
     }
 
     public Policy getPolicy(int n) {

@@ -31,27 +31,55 @@ class Logic {
         stocks = new ArrayList<>(List.of(moneyStock, approvalStock, floodProtectionInfrastructureStock, populationStock));
         variables = new ArrayList<>(List.of(greeneryLevelVariable, riverCapacityVariable, landSubsidenceVariable));
         scenarios = Utility.SCENARIO_LIST;
-        round = 0;
+        round = 1;
     }
 
     public void start(Scheduler scheduler) {
+        UI.printLogo();
+        UI.announceWelcome();
+        UI.announceRules();
+        UI.startMansplaining();
+        UI.introduceStocks();
+        UI.displayValues(stocks, variables);
+        pressEnterToContinue();
         for (Scenario scenario : scenarios) {
-            announceStart();
-            scheduler.houseKeeping();
-            System.out.println(scenario);
+            boolean firstTime = true;
+            UI.announceRoundStart(round);
+            scheduler.doHouseKeeping();
+            pressEnterToContinue();
+            if (firstTime) {
+                UI.announceScenarioStart();
+            } else {
+                UI.announceScenarioAgain();
+            }
+            UI.printScenario(scenario);
             while (scanner.hasNextLine()) {
                 String optionSelected = scanner.nextLine().toUpperCase();
                 if (isInvalidSelection(optionSelected)) {
                     System.out.println("Please enter an option that is either A, B, C, or D.");
+                    firstTime = false;
+                    sleep(800);
                     continue;
                 } else {
-                    System.out.println(String.format("You have selected: %s", scenario.getPolicy(convertSelection(optionSelected))));
+                    System.out.println();
+                    sleep(2200);
+                    System.out.println(String.format("You have selected: %s\n", scenario.getPolicy(convertSelection(optionSelected))));
+                    sleep(2200);
+                    UI.announceEffect();
+                    System.out.println("\nThe effect is as follows:\n");
+                    sleep(1500);
                     execute(scenario.getPolicy(convertSelection(optionSelected)).getUpdates(), scheduler);
-                    System.out.println(scenario.getPolicy(convertSelection(optionSelected)).getEffect());
+                    System.out.println("========================================================");
+                    System.out.println(scenario.getPolicy(convertSelection(optionSelected)).getEffect()); // abstract to UI class
+                    System.out.println("========================================================\n");
+                    sleep(3000);
+                    pressEnterToContinue();
                     break;
                 }
             }
-            announceEnd();
+            UI.announceRoundEnd(round++);
+            UI.displayValues(stocks, variables);
+            pressEnterToContinue();
         }
     }
 
@@ -63,7 +91,7 @@ class Logic {
                 Update update = (Update) generalUpdate;
                 String type = update.getType();
                 String operation = update.getOperation();
-                int amount = update.getAmount();
+                double amount = update.getAmount();
 
                 switch (type) {
                     case Utility.MONEY:
@@ -95,7 +123,7 @@ class Logic {
         }
     }
 
-    private void update(Value value, String operation, int amount) {
+    private void update(Value value, String operation, double amount) {
         if (operation == Utility.SCALE) {
             value.scale(amount);
         } else if (operation == Utility.TRANSLATE) {
@@ -114,7 +142,7 @@ class Logic {
     }
 
     private boolean isInvalidSelection(String optionSelected) {
-        return optionSelected.length() > 1 || optionSelected.charAt(0) < 65 || optionSelected.charAt(0) > 67; 
+        return optionSelected.length() != 1 || optionSelected.charAt(0) < 65 || optionSelected.charAt(0) > 68; 
     }
 
     private int convertSelection(String optionSelected) {
@@ -122,28 +150,18 @@ class Logic {
         return choice % 'A';
     }   
 
-    private void announceStart() {
-        System.out.printf("Welcome to round %d!\n", round);
-        System.out.println();
-        displayValues();
-        System.out.println();
-    }   
+    private void pressEnterToContinue() {
+        System.out.println("---------------------------");
+        System.out.println(">>> Press enter to continue");
+        System.out.println("---------------------------");
+        scanner.nextLine();
+    }
 
-    private void announceEnd() {
-        System.out.printf("We have come to the end of round %d!\n", round);
-        System.out.println();
-        displayValues();
-        System.out.println();
-        round = round + 1;
-    }   
-
-    private void displayValues() {
-        System.out.println("Here are the stocks and variables you need to manage.");
-        for (int i = 0; i < stocks.size(); i++) {
-            System.out.println(String.format("%s: %s", Utility.VALUES.get(i), stocks.get(i)));
-        }
-        for (int i = stocks.size(); i < Utility.VALUES.size(); i++) {
-            System.out.println(String.format("%s: %s", Utility.VALUES.get(i), variables.get(i - stocks.size())));
+    public static void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            System.out.println("Thread was interrupted...");
         }
     }
 }

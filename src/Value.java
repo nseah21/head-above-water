@@ -1,20 +1,20 @@
 abstract class Value {
-    protected int value;
+    protected double value;
 
     public Value(int value) {
         this.value = value;
     }
 
-    public void scale(int multiplier) {
+    public void scale(double multiplier) {
         this.value = this.value * multiplier;
     }
 
-    public void translate(int offset) {
+    public void translate(double offset) {
         this.value = this.value + offset;
     }
 
     @Override
     public String toString() {
-        return Integer.toString(value);
+        return Double.toString(value);
     }
 }

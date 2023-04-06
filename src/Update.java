@@ -6,9 +6,9 @@
 class Update extends GeneralUpdate {
     private String type;
     private String operation;
-    private int amount;
+    private double amount;
 
-    public Update(String type, String operation, int amount) {
+    public Update(String type, String operation, double amount) {
         this.type = type;
         this.operation = operation;
         this.amount = amount;
@@ -27,7 +27,7 @@ class Update extends GeneralUpdate {
         return this.operation;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return this.amount;
     }
 }
