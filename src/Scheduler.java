@@ -41,7 +41,7 @@ class Scheduler {
         }
         for (GeneralUpdate update : updates) {
             Update u = (Update) update;
-            System.out.println(u.toString());
+            System.out.println("*" + u.toString() + "*");
             Logic.sleep(800);
         }
         System.out.println();

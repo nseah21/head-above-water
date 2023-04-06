@@ -16,7 +16,7 @@ class Update extends GeneralUpdate {
 
     @Override
     public String toString() {
-        return this.type + (this.operation == Utility.TRANSLATE ? " was changed by " : " was multiplied by a factor of ") + this.amount + (this.operation == Utility.TRANSLATE ? "units" : ""); 
+        return this.type + (this.operation == Utility.TRANSLATE ? " was changed by " : " was multiplied by a factor of ") + (this.amount >= 0 ? "+" : "") + this.amount + (this.operation == Utility.TRANSLATE ? " units." : "."); 
     }
 
     public String getType() {

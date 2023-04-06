@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 class Logic {
     private Scanner scanner = new Scanner(System.in);
@@ -21,10 +23,10 @@ class Logic {
     private int round;
     
     public void init() {
-        moneyStock = new Stock(10000, 0);
-        approvalStock = new Stock(100, 0);
-        floodProtectionInfrastructureStock = new Stock(100, 0);
-        populationStock = new Stock(100000, 95000);
+        moneyStock = new Stock(8000, 0);
+        approvalStock = new Stock(60, 0);
+        floodProtectionInfrastructureStock = new Stock(60, 0);
+        populationStock = new Stock(75000, 60000);
         greeneryLevelVariable = new Variable(0);
         riverCapacityVariable = new Variable(0);
         landSubsidenceVariable = new Variable(0);
@@ -42,17 +44,34 @@ class Logic {
         UI.introduceStocks();
         UI.displayValues(stocks, variables);
         pressEnterToContinue();
-        for (Scenario scenario : scenarios) {
+        for (int i = 0; i < scenarios.size(); i++) {
+            Scenario scenario = scenarios.get(i);
             boolean firstTime = true;
+            if (checkLoseCondition()) {
+                UI.printLoseLogo();
+                UI.displayValues(stocks, variables);
+                UI.announceLose();
+                System.exit(0);
+            } 
             UI.announceRoundStart(round);
             scheduler.doHouseKeeping();
             pressEnterToContinue();
+            if (i > 0) {
+                simulateFlood();
+            }
+            if (checkLoseCondition()) {
+                UI.printLoseLogo();
+                UI.displayValues(stocks, variables);
+                UI.announceLose();
+                System.exit(0);
+            } 
             if (firstTime) {
                 UI.announceScenarioStart();
             } else {
                 UI.announceScenarioAgain();
             }
             UI.printScenario(scenario);
+            execute(List.of(scenario.getScenarioEffect()), scheduler); 
             while (scanner.hasNextLine()) {
                 String optionSelected = scanner.nextLine().toUpperCase();
                 if (isInvalidSelection(optionSelected)) {
@@ -62,17 +81,17 @@ class Logic {
                     continue;
                 } else {
                     System.out.println();
-                    sleep(2200);
+                    sleep(1200);
                     System.out.println(String.format("You have selected: %s\n", scenario.getPolicy(convertSelection(optionSelected))));
-                    sleep(2200);
+                    sleep(1200);
                     UI.announceEffect();
                     System.out.println("\nThe effect is as follows:\n");
-                    sleep(1500);
+                    sleep(1300);
                     execute(scenario.getPolicy(convertSelection(optionSelected)).getUpdates(), scheduler);
-                    System.out.println("========================================================");
-                    System.out.println(scenario.getPolicy(convertSelection(optionSelected)).getEffect()); // abstract to UI class
-                    System.out.println("========================================================\n");
-                    sleep(3000);
+                    
+                    System.out.println("*" + scenario.getPolicy(convertSelection(optionSelected)).getEffect() + "*"); // abstract to UI class
+                    System.out.println();
+                    sleep(1200);
                     pressEnterToContinue();
                     break;
                 }
@@ -80,6 +99,17 @@ class Logic {
             UI.announceRoundEnd(round++);
             UI.displayValues(stocks, variables);
             pressEnterToContinue();
+        }
+        if (checkLoseCondition()) {
+            UI.printLoseLogo();
+            UI.displayValues(stocks, variables);
+            UI.announceLose(); 
+            System.exit(0);
+        } else {
+            UI.printWinLogo();
+            UI.displayValues(stocks, variables);
+            UI.announceWin(); 
+            System.exit(0);
         }
     }
 
@@ -133,12 +163,14 @@ class Logic {
         }
     }
 
-    private void checkLoseCondition() {
+    private boolean checkLoseCondition() {
         for (Stock stock : stocks) {
             if (!stock.isValid()) {
                 // LOSE
+                return true;
             }
         }
+        return false;
     }
 
     private boolean isInvalidSelection(String optionSelected) {
@@ -162,6 +194,78 @@ class Logic {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
             System.out.println("Thread was interrupted...");
+        }
+    }
+
+    // Taken from https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
+    public static List<Scenario> shuffle(List<Scenario> scenarios) {
+        Random rnd = ThreadLocalRandom.current();
+        Scenario[] ar = new Scenario[scenarios.size()];
+        scenarios.toArray(ar);
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+          int index = rnd.nextInt(i + 1);
+          // Simple swap
+          Scenario a = ar[index];
+          ar[index] = ar[i];
+          ar[i] = a;
+        }
+        return List.of(ar);
+    }
+
+    private void simulateFlood() {
+        sleep(500);
+        Random random = new Random();
+        double threshold = random.nextDouble();
+        double multiplier = Math.max(1, - 0.2 * greeneryLevelVariable.getValue() + 0.3 * landSubsidenceVariable.getValue() - 0.4 * riverCapacityVariable.getValue());
+        double moneyDamage = -1800 * threshold * multiplier;
+        double populationDamage = -2200 * threshold * multiplier;
+        double approvalDamage = -25 * threshold * multiplier;
+        double infrastructureDamage = -30 * threshold * multiplier;
+
+        boolean flooded = true;
+
+        sleep(500);
+        System.out.println();
+
+        if (threshold > 0.60) {
+            System.out.println("***OH NO! A flood has occured!***\n");
+            System.out.println("The severity level is... SMALL.\n");
+        } else if (threshold > 0.80) {
+            System.out.println("***OH NO! A flood has occured!***\n");
+            System.out.println("The severity level is... MODERATE.\n");
+        } else if (threshold > 0.90) {
+            System.out.println("***OH NO! A flood has occured!***\n");
+            System.out.println("The severity level is... SEVERE.\n");
+        } else if (threshold > 0.95) {
+            System.out.println("***OH NO! A flood has occured!***\n");
+            System.out.println("The severity level is... DEVASTATING.\n");
+        } else {
+            flooded = false;
+        }
+
+        if (flooded) {
+
+            moneyStock.translate(moneyDamage);
+            populationStock.translate(populationDamage);
+            approvalStock.translate(approvalDamage);
+            floodProtectionInfrastructureStock.translate(infrastructureDamage);
+
+            sleep(500);
+            System.out.println();
+            System.out.println("Your stocks have suffered some damage...\n");
+            System.out.println();
+            sleep(500);
+            System.out.printf("%-15s: %.2f\n", "MONEY", moneyDamage);
+            sleep(500);
+            System.out.printf("%-15s: %.2f\n", "APPROVAL", approvalDamage);
+            sleep(500);
+            System.out.printf("%-15s: %.2f\n", "FLOOD PROTECTION", infrastructureDamage);
+            sleep(500);
+            System.out.printf("%-15s: %.2f\n", "POPULATION", populationDamage);
+            sleep(500);
+            System.out.println("\nAfter the disaster has passed...\n");
+            sleep(500);
         }
     }
 }

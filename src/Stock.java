@@ -7,6 +7,6 @@ class Stock extends Value {
     }
 
     public boolean isValid() {
-        return this.value < this.threshold;
+        return this.value > this.threshold;
     }
 }
