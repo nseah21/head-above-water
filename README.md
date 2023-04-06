@@ -14,7 +14,7 @@ We hope that playing this game will provide an insight into the considerations t
 
 1. Short-term policy (with immediate impacts) vs long-term policy (with delayed impacts)
 2. Randomly simulated floods which occur with varying probabilities (and magnitudes)
-3. Stocks that emulate the factors which policymaker might need to juggle 
+3. Stocks that emulate the factors which a policymaker might need to juggle 
 4. Variables that affect the severity of damage incurred on the stocks (using some magic calculations... don't read the code hehe)
 5. Over 100,000 possible permutations of actions per game!
 6. Shuffled scenarios
