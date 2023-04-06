@@ -217,7 +217,14 @@ class Logic {
         sleep(500);
         Random random = new Random();
         double threshold = random.nextDouble();
-        double multiplier = Math.max(1, - 0.2 * greeneryLevelVariable.getValue() + 0.3 * landSubsidenceVariable.getValue() - 0.4 * riverCapacityVariable.getValue());
+        // Multipliers cannot be 0 since they will be compounded
+        // For floodProtectionMultiplier and riverCapacityMultiplier, the effectiveness is halved as to prevent users from thinking that infrastructure solutions are the best solution
+        double floodProtectionMultiplier = Math.max(0.0000000001, 1 - (floodProtectionInfrastructureStock.getValue() / 200));
+        double greeneryLevelMultiplier = Math.max(0.0000000001, 1 - (greeneryLevelVariable.getValue() / 100));
+        double riverCapacityMultiplier = Math.max(0.0000000001, 1 - (riverCapacityVariable.getValue() / 200));
+        double landSubsidenceMultiplier = Math.max(1, 1 + landSubsidenceVariable.getValue() / 100);
+        double multiplier = floodProtectionMultiplier * greeneryLevelMultiplier * riverCapacityMultiplier * landSubsidenceMultiplier;
+        // Might want to reconsider changing the base values here?
         double moneyDamage = -1800 * threshold * multiplier;
         double populationDamage = -2200 * threshold * multiplier;
         double approvalDamage = -25 * threshold * multiplier;
@@ -256,13 +263,13 @@ class Logic {
             System.out.println("Your stocks have suffered some damage...\n");
             System.out.println();
             sleep(500);
-            System.out.printf("%-15s: %.2f\n", "MONEY", moneyDamage);
+            System.out.printf("%-17s: %.2f\n", "MONEY", moneyDamage);
             sleep(500);
-            System.out.printf("%-15s: %.2f\n", "APPROVAL", approvalDamage);
+            System.out.printf("%-17s: %.2f\n", "APPROVAL", approvalDamage);
             sleep(500);
-            System.out.printf("%-15s: %.2f\n", "FLOOD PROTECTION", infrastructureDamage);
+            System.out.printf("%-17s: %.2f\n", "FLOOD PROTECTION", infrastructureDamage);
             sleep(500);
-            System.out.printf("%-15s: %.2f\n", "POPULATION", populationDamage);
+            System.out.printf("%-17s: %.2f\n", "POPULATION", populationDamage);
             sleep(500);
             System.out.println("\nAfter the disaster has passed...\n");
             sleep(500);
