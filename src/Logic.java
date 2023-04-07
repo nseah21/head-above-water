@@ -219,16 +219,22 @@ class Logic {
         double threshold = random.nextDouble();
         // Multipliers cannot be 0 since they will be compounded
         // For floodProtectionMultiplier and riverCapacityMultiplier, the effectiveness is halved as to prevent users from thinking that infrastructure solutions are the best solution
-        double floodProtectionMultiplier = Math.max(0.0000000001, 1 - (floodProtectionInfrastructureStock.getValue() / 200));
-        double greeneryLevelMultiplier = Math.max(0.0000000001, 1 - (greeneryLevelVariable.getValue() / 100));
-        double riverCapacityMultiplier = Math.max(0.0000000001, 1 - (riverCapacityVariable.getValue() / 200));
+        double floodProtectionMultiplier = Math.max(0.1, 1 - (floodProtectionInfrastructureStock.getValue() / 200));
+        double greeneryLevelMultiplier = Math.max(0.1, 1 - (greeneryLevelVariable.getValue() / 100));
+        double riverCapacityMultiplier = Math.max(0.1, 1 - (riverCapacityVariable.getValue() / 200));
         double landSubsidenceMultiplier = Math.max(1, 1 + landSubsidenceVariable.getValue() / 100);
-        double multiplier = floodProtectionMultiplier * greeneryLevelMultiplier * riverCapacityMultiplier * landSubsidenceMultiplier;
-        // Might want to reconsider changing the base values here?
-        double moneyDamage = -1800 * threshold * multiplier;
-        double populationDamage = -2200 * threshold * multiplier;
-        double approvalDamage = -25 * threshold * multiplier;
-        double infrastructureDamage = -30 * threshold * multiplier;
+
+        // Multiplier to flood probability
+        double floodProbabilitymultiplier = greeneryLevelMultiplier * riverCapacityMultiplier * landSubsidenceMultiplier;
+        // Threshold which is the probability of flooding changes when greeneryLevel, riverCapacity or landSubsidence changes
+        threshold *= floodProbabilitymultiplier;
+
+        // Since threshold already includes the multiplier effect from 3 factors, dont have to include them again 
+        // floodProtection multiplier will decrease the effect of floods
+        double moneyDamage = -1800 * threshold * floodProtectionMultiplier;
+        double populationDamage = -2200 * threshold * floodProtectionMultiplier;
+        double approvalDamage = -25 * threshold * floodProtectionMultiplier;
+        double infrastructureDamage = -30 * threshold * floodProtectionMultiplier;
 
         boolean flooded = true;
 

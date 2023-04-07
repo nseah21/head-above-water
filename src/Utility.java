@@ -33,12 +33,12 @@ class Utility {
     public static int approvalChangeOneOne = 5;
 
     // Variables for policy 2:
-    public static int approvalChangeOneTwo = 10;
+    public static int approvalChangeOneTwo = 5;
 
     // Variables for policy 3:
     public static int moneyChangeOneThree = -5000;
-    public static int approvalChangeOneThree = 15;
-    public static int landSubsidenceChangeOneThree = 6;
+    public static int approvalChangeOneThree = 10;
+    public static int landSubsidenceChangeOneThree = 10;
     public static int riverCapacityChangeOneThree = 5;
 
     public static final Scenario SCENARIO_ONE = new Scenario(
@@ -59,23 +59,24 @@ class Utility {
     // Variables for policy 1:
     public static int moneyChangeTwoOne = -1000; 
     public static int floodProtectionTwoOne = 2;
+    public static int approvalChangeTwoOne = 5;
 
     // Variables for policy 2:
-    public static int moneyChangeTwoTwo = -100;
+    public static int moneyChangeTwoTwo = -1000;
     public static int approvalChangeTwoTwo = -10;
 
     // Variables for policy 3:
     public static int moneyChangeTwoThree = -5000;
     public static int approvalChangeTwoThree = -10;
-    public static int greeneryChangeTwoThree = 10;
+    public static int greeneryChangeTwoThree = 20;
 
     public static final Scenario SCENARIO_TWO = new Scenario(
         "The citizens are angry at your government for the insufficient flood infrastructure, and feel that they are not adequately protected. They are gearing up for a protest against you. This causes your approval rating to decrease by 10.\n",
     
         new Update(APPROVAL, TRANSLATE, defaultChangeTwo),
-        new Policy("Build better drainage infrastucture to deal with stormwater runoff, it will cost you $1000", "As a result of your investment, FLOOD PROTECTION increased!", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionTwoOne), new Update(MONEY, TRANSLATE, moneyChangeTwoOne)),
-        new Policy("Pay the local media to inform the public about the policies and flood infrastructure that are in place. It will cost you $100", "The public is already aware of these policies and feel that it is insufficient. Now they are convinced that you do not understand the situation on the ground. APPROVAL decreases.", new Update(APPROVAL, TRANSLATE, approvalChangeTwoTwo), new Update(MONEY, TRANSLATE, moneyChangeTwoTwo)),
-        new Policy("Ignore the current problem and carry out naturalisation in your city to build long term flood infrastructure. It will cost you $5000", "Your people are still living with the fear of flood. APPROVAL decreases.", new Update(MONEY, TRANSLATE, moneyChangeTwoThree), new Update(APPROVAL, TRANSLATE, approvalChangeTwoThree), new FutureUpdate(new Update(GREENERY_LEVEL, TRANSLATE, greeneryChangeTwoThree), 4)),
+        new Policy("Build better drainage infrastucture to deal with stormwater runoff, it will cost you $1000", "As a result of your investment, APPROVAL and FLOOD PROTECTION increased!", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionTwoOne), new Update(MONEY, TRANSLATE, moneyChangeTwoOne), new Update(APPROVAL, TRANSLATE, approvalChangeTwoOne)),
+        new Policy("Pay the local media to inform the public about the policies and flood infrastructure that are in place. It will cost you $1000", "The public is already aware of these policies and feel that it is insufficient. Now they are convinced that you do not understand the situation on the ground. APPROVAL decreases.", new Update(APPROVAL, TRANSLATE, approvalChangeTwoTwo), new Update(MONEY, TRANSLATE, moneyChangeTwoTwo)),
+        new Policy("Ignore the current problem and carry out naturalisation in your city to build long term flood infrastructure protection. It will cost you $5000", "Your people are still living with the fear of flood. APPROVAL decreases.", new Update(MONEY, TRANSLATE, moneyChangeTwoThree), new Update(APPROVAL, TRANSLATE, approvalChangeTwoThree), new FutureUpdate(new Update(GREENERY_LEVEL, TRANSLATE, greeneryChangeTwoThree), 4)),
         new Policy("Do nothing", "Your people are not happy with you for ignoring them. APPROVAL decreases.", new Update(APPROVAL, TRANSLATE, -10))
     );
 
@@ -86,11 +87,11 @@ class Utility {
 
     // Variables for policy 1:
     public static int approvalChangeThreeOne = 5;
-    public static int moneyChangeThreeOne = -200;
+    public static int moneyChangeThreeOne = -500;
 
     // Variables for policy 2:
     public static int approvalChangeThreeTwo = 5;
-    public static int moneyChangeThreeTwo = -1000;
+    public static int moneyChangeThreeTwo = -1500;
 
     // Variables for policy 3:
     public static int approvalChangeThreeThree = 5;
@@ -100,8 +101,8 @@ class Utility {
     public static final Scenario SCENARIO_THREE = new Scenario(
         "Your country experiences an economic boom! You have collected more taxes this turn! MONEY increases by $5000.\n",
         new Update(MONEY, TRANSLATE, defaultChangeThree),
-        new Policy("Spend it on your political party as they deserve it. It will cost you $200", "Your members become more motivated and engages their communities more. APPROVAL increases.", new Update(APPROVAL, TRANSLATE, approvalChangeThreeOne), new Update(MONEY, TRANSLATE, moneyChangeThreeOne)),
-        new Policy("Provide subsidies to those who have been affected by severe floods in the past. It will cost you $1000", "Your people have a better impression of you. APPROVAL increases", new Update(APPROVAL, TRANSLATE, approvalChangeThreeTwo), new Update(MONEY, TRANSLATE, moneyChangeThreeTwo)),
+        new Policy("Spend it on your political party as they deserve it. It will cost you $500", "Your members become more motivated and engages their communities more. APPROVAL increases.", new Update(APPROVAL, TRANSLATE, approvalChangeThreeOne), new Update(MONEY, TRANSLATE, moneyChangeThreeOne)),
+        new Policy("Provide subsidies to those who have been affected by severe floods in the past. It will cost you $1500", "Your people have a better impression of you. APPROVAL increases", new Update(APPROVAL, TRANSLATE, approvalChangeThreeTwo), new Update(MONEY, TRANSLATE, moneyChangeThreeTwo)),
         new Policy("Build a detention basin to help with flood protection but the effects will only take place 3 turns later. It will cost $3000", "Your people are happy that you have built a detention basin. APPROVAL increases.", new Update(MONEY, TRANSLATE, moneyChangeThreeThree), new Update(APPROVAL, TRANSLATE, approvalChangeThreeThree), new FutureUpdate(new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionThreeThree), 3)),
         new Policy("Do nothing", "Nothing happens")
     );
@@ -112,16 +113,16 @@ class Utility {
     public static int defaultChangeFour = -2000;
 
     // Variables for policy 1:
-    public static int approvalChangeFourOne = 10; 
+    public static int approvalChangeFourOne = 5; 
     public static int moneyChangeFourOne = -1000;
 
     // Variables for policy 2:
-    public static int approvalChangeFourTwo = 10;
+    public static int approvalChangeFourTwo = 5;
     public static int moneyChangeFourTwo = -1500;
 
     // Variables for policy 3:
     public static int approvalChangeFourThree = -5;
-    public static int moneyChangeFourThree = -1000;
+    public static int moneyChangeFourThree = -2000;
     public static int greeneryChangeFourThree = 3;
 
     public static final Scenario SCENARIO_FOUR = new Scenario(
@@ -129,7 +130,7 @@ class Utility {
         new Update(MONEY, TRANSLATE, defaultChangeFour),
         new Policy("Provide subsidies for your people to tide them through the recession. It will cost you $1000", "Your people are glad that you have their backs. APPROVAL increases.", new Update(APPROVAL, TRANSLATE, approvalChangeFourOne), new Update(MONEY, TRANSLATE, moneyChangeFourOne)),
         new Policy("Borrow money from the IMF to provide subsidies for your people. It will cost you $1500 over 3 turns instead", "Your people are glad that you have their backs. APPROVAL increases.", new Update(APPROVAL, TRANSLATE, approvalChangeFourTwo), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeFourTwo/3), 1), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeFourTwo/3), 2), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeFourTwo/3), 3)),
-        new Policy("Remain committed to your plans to protect your people from flooding. Investm in naturalization projects whose effects will only be seen after 3 turns. It will cost you $1000", "Your people are angry that you do not care about them during the recession. APPROVAL falls.", new Update(APPROVAL, TRANSLATE, approvalChangeFourThree), new Update(MONEY, TRANSLATE, moneyChangeFourThree), new FutureUpdate(new Update(GREENERY_LEVEL, TRANSLATE, greeneryChangeFourThree), 3)),
+        new Policy("Remain committed to your plans to protect your people from flooding. Invest in naturalization projects whose effects will only be seen after 3 turns. It will cost you $2000", "Your people are angry that you do not care about them during the recession. APPROVAL falls.", new Update(APPROVAL, TRANSLATE, approvalChangeFourThree), new Update(MONEY, TRANSLATE, moneyChangeFourThree), new FutureUpdate(new Update(GREENERY_LEVEL, TRANSLATE, greeneryChangeFourThree), 3)),
         new Policy("Do nothing.", "Your people are unhappy that you are not helping them during the recession. APPROVAL falls.", new Update(APPROVAL, TRANSLATE, -5))
     );
 
@@ -139,7 +140,7 @@ class Utility {
     public static int defaultChangeFive = 0;
 
     // Variables for policy 1:
-    public static int moneyChangeFiveOne = -500;
+    public static int moneyChangeFiveOne = -1000;
 
     // Variables for policy 2:
     public static int approvalChangeFiveTwo = -10;
@@ -147,16 +148,16 @@ class Utility {
 
     // Variables for policy 3:
     public static int approvalChangeFiveThree = 5;
-    public static int moneyChangeFiveThree = -500;
-    public static int floodProtectionFiveThree = 1;
+    public static int moneyChangeFiveThree = -1000;
+    public static int floodProtectionFiveThree = 2;
 
 
     public static final Scenario SCENARIO_FIVE = new Scenario(
         "Your hometown has just experienced a serious flood but that region is out of your jurisdiction. You feel a sense of loss for your family and friends back home.\n",
         new Update(MONEY, TRANSLATE, defaultChangeFive),
-        new Policy("Secretly channel some money to help the people in your hometown. It will cost $500.", "Luckily, your actions are not noticed by the auditors. Nothing happens.", new Update(MONEY, TRANSLATE, moneyChangeFiveOne)),
+        new Policy("Secretly channel some money to help the people in your hometown. It will cost $1000.", "Luckily, your actions are not noticed by the auditors. Nothing happens.", new Update(MONEY, TRANSLATE, moneyChangeFiveOne)),
         new Policy("Convince an opposition party politician to help your town. It will cost you $500.", "The opposing politician pockets the money for himself and announces that you tried to bribe him. APPROVAL falls.", new Update(APPROVAL, TRANSLATE, approvalChangeFiveTwo), new Update(MONEY, TRANSLATE, moneyChangeFiveTwo)),
-        new Policy("Build drainage infrastructure in your own region to ensure that such floods occur less frequently. It will cost $500. You are disappointed that you can do nothing to help your hometown.", "As a result of your efforts, FLOOD PROTECTION and APPROVAL increases.", new Update(MONEY, TRANSLATE, moneyChangeFiveThree), new Update(APPROVAL, TRANSLATE, approvalChangeFiveThree), new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionFiveThree)),
+        new Policy("Build drainage infrastructure in your own region to ensure that such floods occur less frequently. It will cost $1000. You are disappointed that you can do nothing to help your hometown.", "As a result of your efforts, FLOOD PROTECTION and APPROVAL increases.", new Update(MONEY, TRANSLATE, moneyChangeFiveThree), new Update(APPROVAL, TRANSLATE, approvalChangeFiveThree), new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionFiveThree)),
         new Policy("Do nothing", "Nothing happens")
     );
 
@@ -170,8 +171,9 @@ class Utility {
     public static int approvalChangeSixOne = -5;
 
     // Variables for policy 2:
-    public static int moneyChangeSixTwo = -200;
+    public static int moneyChangeSixTwo = -1000;
     public static int floodProtectionSixTwo = 1; 
+    public static int approvalChangeSixTwo = 5;
 
     // Variables for policy 3:
     public static int moneyChangeSixThree = -2000;
@@ -181,7 +183,7 @@ class Utility {
         "In a recent flood, many illegal squatters residing near the rivers (that previously refused to be relocated) have died. Population decreases by 1000.\n",
         new Update(POPULATION, TRANSLATE, defaultChangeSix),
         new Policy("To prevent such events from happening again, pass a law that makes it illegal to live near the rivers and remove these people.", "As a result of your actions, those people have moved out of Jakarta. Addtionally, your actions are noticed by your people who are angry that you did such things. POPULATION and APPROVAL decrases.", new Update(POPULATION, TRANSLATE, populationChangeSixOne), new Update(APPROVAL, TRANSLATE, approvalChangeSixOne)),
-        new Policy("To protect these people from future floods, build flood barriers for them. This will cost you $200.", "FLOOD PROTECTION increases.", new Update(MONEY, TRANSLATE, moneyChangeSixTwo), new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionSixTwo)),
+        new Policy("To protect these people from future floods, build flood barriers for them. This will cost you $1000.", "APPROVAL and FLOOD PROTECTION increases.", new Update(MONEY, TRANSLATE, moneyChangeSixTwo), new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionSixTwo), new Update(APPROVAL, TRANSLATE, approvalChangeSixTwo)),
         new Policy("Educate the population of the dangers of residing near the rivers in Jakarta and what they can do to allevaite the effects of floods. It will cost you $2000.", "Your people are glad that you tried to educate them about the dangers of floods. APPROVAL increases.", new Update(MONEY, TRANSLATE, moneyChangeSixThree), new Update(APPROVAL, TRANSLATE, approvalChangeSixThree)),
         new Policy("Do nothing", "Another flood occurs. More people are dead and your people are outraged. POPULATION and APPROVAL falls.", new Update(APPROVAL, TRANSLATE, -10), new Update(POPULATION, TRANSLATE, -2000))
     );
@@ -194,12 +196,12 @@ class Utility {
     // Variables for policy 1:
     public static int moneyChangeSevenOne = 1000;
     public static int approvalChangeSevenOne = 8;
-    public static int landSubsidenceChangeSevenOne = 3;
+    public static int landSubsidenceChangeSevenOne = 5;
 
     // Variables for policy 2:
     public static int moneyChangeSevenTwo = 800;
     public static int approvalChangeSevenTwo = 8;
-    public static int landSubsidenceChangeSevenTwo = 2;
+    public static int landSubsidenceChangeSevenTwo = 3;
 
     // Variables for policy 3:
     public static int approvalChangeSevenThree = -5;
@@ -208,7 +210,7 @@ class Utility {
         "A multinational company is looking to set up their base of operations in Jakarta. Although it will encourage economic growth and create jobs, they will be building many concrete structures in Jakarta.\n",
         new Update(MONEY, TRANSLATE, defaultChangeSeven),
         new Policy("Agree fully to let the company build whatever they want in Jakarta.", "Your people are happy that they have more jobs and there is an economic boom for the next 3 turns. However, land subsidence occurs for the next 5 turns. APPROVAL increase. MONEY increases for the next 3 turns. Land Subsidence increases for the next 5 turns", new Update(APPROVAL, TRANSLATE, approvalChangeSevenOne), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeSevenOne), 1), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeSevenOne), 2), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeSevenOne), 3), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenOne), 1), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenOne), 2), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenOne), 3), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenOne), 4), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenOne), 5)),
-        new Policy("Agree to let the company operate in Jakarta but they will operate under a stricter guideline.", "Your people are happy that they have more jobs and there is an econmic boom over the next 2 turns. However, land subsidence occurs over the next 3 turns.\n APPROVAL, MONEY and Land Subsidence increase.\nMONEY increases over the next 2 turns", new Update(APPROVAL, TRANSLATE, approvalChangeSevenTwo), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeSevenTwo), 1), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeSevenTwo), 2), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenTwo), 1), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenTwo), 2), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenTwo), 3)),
+        new Policy("Agree to let the company operate in Jakarta but they will operate under a stricter guideline such as restricting groundwater extraction.", "Your people are happy that they have more jobs and there is an econmic boom over the next 2 turns. However, land subsidence occurs over the next 3 turns.\n APPROVAL, MONEY and Land Subsidence increase.\nMONEY increases over the next 2 turns", new Update(APPROVAL, TRANSLATE, approvalChangeSevenTwo), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeSevenTwo), 1), new FutureUpdate(new Update(MONEY, TRANSLATE, moneyChangeSevenTwo), 2), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenTwo), 1), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenTwo), 2), new FutureUpdate(new Update(LAND_SUBSIDENCE, TRANSLATE, landSubsidenceChangeSevenTwo), 3)),
         new Policy("Do not allow the company to operate in Jakarta as the cost outweighs the benefits", "Your people are unhappy as they think that this is a good opportunity. APPROVAL decreases.", new Update(APPROVAL, TRANSLATE, approvalChangeSevenThree)),
         new Policy("Do nothing", "Nothing happens.")
     );
@@ -256,7 +258,7 @@ class Utility {
     // Variables for policy 3:
     public static int moneyChangeNineThree = -3000;
     public static int approvalChangeNineThree = -10;
-    public static int greeneryChangeNineThree = 10;
+    public static int greeneryChangeNineThree = 20;
 
     public static final Scenario SCENARIO_NINE = new Scenario(
         "There are no events that require your attention. You are able to take a breather and re-evaluate your flood protection policies.\n",
@@ -284,6 +286,8 @@ class Utility {
     public static int moneyChangeTenThree = -1000;
     public static int riverCapacityChangeTenThree = 5;
     public static int approvalChangeTenThree = 5;
+    public static int riverCapacityChangeTenThreeOne = -2;
+    public static int riverCapacityChangeTenThreeTwo = -3;
 
     public static final Scenario SCENARIO_TEN = new Scenario(
         "Severe flood has broken out in the neighbouring region, your people are worried that they will be next.\n",
@@ -291,7 +295,7 @@ class Utility {
         new Policy("Build flood barriers to improve FLOOD INFRASTRUCTURE. This will cost you $1000.", "Your people are happy as they now feel safer from floods. APPROVAL increases.", new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionTenOne), new Update(MONEY, TRANSLATE, moneyChangeTenOne), new Update(APPROVAL, TRANSLATE, approvalChangeTenOne)),
         new Policy("Assure your people that they are safe here and the probability of floods occuring is low.", "Your people feel reassured by your comments. APPROVAL increases.", new Update(APPROVAL, TRANSLATE, approvalChangeTenTwo)),
         new Policy("Engage in dredging to increase River Capacity. This will cost you $1000.", "Your people feel safer from floods now. APPROVAL increases.", new Update(MONEY, TRANSLATE, moneyChangeTenThree), new Update(APPROVAL, TRANSLATE, approvalChangeTenThree), new Update(RIVER_CAPACITY, TRANSLATE, riverCapacityChangeTenThree)),
-        new Policy("Do nothing.", "Your people are now more afraid of floods and their view of the government has gotten worse. APPROVAL decreases. ", new Update(APPROVAL, TRANSLATE, -10))
+        new Policy("Do nothing.", "Your people are now more afraid of floods and their view of the government has gotten worse. APPROVAL decreases. ", new Update(APPROVAL, TRANSLATE, -10), new FutureUpdate(new Update(RIVER_CAPACITY, TRANSLATE, riverCapacityChangeTenThreeOne), 1), new FutureUpdate(new Update(RIVER_CAPACITY, TRANSLATE, riverCapacityChangeTenThreeTwo), 2))
     );
 
     // Scenario 11: Sea Level Rise
