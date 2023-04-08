@@ -3,10 +3,10 @@ import java.util.ArrayList;
 
 class Scenario {
     private String description;
-    private Update scenarioEffect;
+    private List<GeneralUpdate> scenarioEffect;
     private List<Policy> policies;
 
-    public Scenario(String description, Update scenarioEffect, Policy first, Policy second, Policy third, Policy fourth) {
+    public Scenario(String description, List<GeneralUpdate> scenarioEffect, Policy first, Policy second, Policy third, Policy fourth) {
         this.description = description;
         this.scenarioEffect = scenarioEffect;
         this.policies = new ArrayList<>(List.of(first, second, third, fourth));
@@ -29,7 +29,7 @@ class Scenario {
         return policies.get(n);
     }
 
-    public Update getScenarioEffect() {
+    public List<GeneralUpdate> getScenarioEffect() {
         return this.scenarioEffect;
     }
 }

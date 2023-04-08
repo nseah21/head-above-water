@@ -77,7 +77,7 @@ class Logic {
                 UI.announceScenarioAgain();
             }
             UI.printScenario(scenario);
-            execute(List.of(scenario.getScenarioEffect()), scheduler); 
+            execute(scenario.getScenarioEffect(), scheduler);  // <<-- CHANGE THIS RIGHT HERE
             while (scanner.hasNextLine()) {
                 String optionSelected = scanner.nextLine().toUpperCase();
                 if (isInvalidSelection(optionSelected)) {
