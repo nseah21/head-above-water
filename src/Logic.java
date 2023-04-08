@@ -237,10 +237,10 @@ class Logic {
 
         // Since threshold already includes the multiplier effect from 3 factors, dont have to include them again 
         // floodProtection multiplier will decrease the effect of floods
-        double moneyDamage = -1800 * threshold * floodProtectionMultiplier;
-        double populationDamage = -2200 * threshold * floodProtectionMultiplier;
-        double approvalDamage = -25 * threshold * floodProtectionMultiplier;
-        double infrastructureDamage = -30 * threshold * floodProtectionMultiplier;
+        double moneyDamage = -2000 * threshold * floodProtectionMultiplier;
+        double populationDamage = -1500 * threshold * floodProtectionMultiplier;
+        double approvalDamage = -15 * threshold * floodProtectionMultiplier;
+        double infrastructureDamage = -20 * threshold * floodProtectionMultiplier;
 
         boolean flooded = true;
 
