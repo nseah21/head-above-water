@@ -190,23 +190,23 @@ class UI {
     }
 
     public static void displayValues(List<Stock> stocks, List<Variable> variables) {
-        Logic.sleep(400);
+        Logic.sleep(270);
         System.out.println("+----------------------------------------------------------+");
-        Logic.sleep(400);
+        Logic.sleep(270);
         System.out.println(String.format("| %-18s | %-16s | %-16s |", "STOCK/Variable", "Current Value", "Initial Value"));
-        Logic.sleep(400);
+        Logic.sleep(270);
         System.out.println("+----------------------------------------------------------+");
-        Logic.sleep(400);
+        Logic.sleep(270);
         for (int i = 0; i < stocks.size(); i++) {
             System.out.println(String.format("| %-18s | %-16s | %-16.2f |", Utility.VALUES.get(i), stocks.get(i), Utility.INITIAL_STOCKS.get(i)));
-            Logic.sleep(400);
+            Logic.sleep(270);
         }
         for (int i = stocks.size(); i < Utility.VALUES.size(); i++) {
             System.out.println(String.format("| %-18s | %-16s | %-16.2f |", Utility.VALUES.get(i), variables.get(i - stocks.size()), Utility.INITIAL_VARIABLES.get(i - stocks.size())));
-            Logic.sleep(400);
+            Logic.sleep(270);
         }
         System.out.println("+----------------------------------------------------------+");
-        Logic.sleep(400);
+        Logic.sleep(270);
         System.out.println();
     }
 

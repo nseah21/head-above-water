@@ -44,7 +44,7 @@ class Logic {
         UI.introduceStocks();
         UI.displayValues(stocks, variables);
         pressEnterToContinue();
-        for (int i = 0; i < scenarios.size(); i++) {
+        for (int i = 0; i < Utility.LAST_ROUND; i++) {
             Scenario scenario = scenarios.get(i);
             boolean firstTime = true;
             if (checkLoseCondition()) {
@@ -54,10 +54,16 @@ class Logic {
                 System.exit(0);
             } 
             UI.announceRoundStart(round);
-            scheduler.doHouseKeeping();
+            boolean lingeringEffects = scheduler.doHouseKeeping();
             pressEnterToContinue();
             if (i > 0) {
-                simulateFlood();
+                if (simulateFlood() || lingeringEffects) {
+                    sleep(500);
+                    System.out.println("Here are the *updated* stocks and variables:\n");
+                    sleep(500);
+                    UI.displayValues(stocks, variables);
+                    pressEnterToContinue();
+                }
             }
             if (checkLoseCondition()) {
                 UI.printLoseLogo();
@@ -213,7 +219,7 @@ class Logic {
         return List.of(ar);
     }
 
-    private void simulateFlood() {
+    private boolean simulateFlood() {
         sleep(500);
         Random random = new Random();
         double threshold = random.nextDouble();
@@ -241,7 +247,7 @@ class Logic {
         sleep(500);
         System.out.println();
 
-        if (threshold > 0.60) {
+        if (threshold > 0.55) {
             System.out.println("***OH NO! A flood has occured!***\n");
             System.out.println("The severity level is... SMALL.\n");
         } else if (threshold > 0.80) {
@@ -280,5 +286,11 @@ class Logic {
             System.out.println("\nAfter the disaster has passed...\n");
             sleep(500);
         }
+
+        if (flooded) {
+            pressEnterToContinue();
+        }
+
+        return flooded;
     }
 }

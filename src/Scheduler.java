@@ -11,9 +11,9 @@ class Scheduler {
         this.logic = logic;
     }
 
-    public void doHouseKeeping() {
+    public boolean doHouseKeeping() {
         tick();
-        execute();
+        return execute();
     }
 
     public void addToQueue(FutureUpdate futureUpdate) {
@@ -24,7 +24,7 @@ class Scheduler {
         queue.forEach(FutureUpdate::decreaseCountdown);
     }
 
-    private void execute() {
+    private boolean execute() {
         List<GeneralUpdate> updates = new ArrayList<>();
         while (!queue.isEmpty() && queue.peek().getCountdown() == 0) {
             updates.add(queue.poll().getUpdate());
@@ -45,5 +45,6 @@ class Scheduler {
             Logic.sleep(800);
         }
         System.out.println();
+        return !updates.isEmpty();
     }
 }

@@ -18,7 +18,7 @@ class Utility {
     public static final String SCALE  = "s";
     public static final String TRANSLATE  = "t";
 
-    public static final int LAST_ROUND = 11;
+    public static final int LAST_ROUND = 10;
 
     // Scenario 1: Political Pressure
 
@@ -184,7 +184,7 @@ class Utility {
         new Update(POPULATION, TRANSLATE, defaultChangeSix),
         new Policy("To prevent such events from happening again, pass a law that makes it illegal to live near the rivers and remove these people.", "As a result of your actions, those people have moved out of Jakarta. Addtionally, your actions are noticed by your people who are angry that you did such things. POPULATION and APPROVAL decrases.", new Update(POPULATION, TRANSLATE, populationChangeSixOne), new Update(APPROVAL, TRANSLATE, approvalChangeSixOne)),
         new Policy("To protect these people from future floods, build flood barriers for them. This will cost you $1000.", "APPROVAL and FLOOD PROTECTION increases.", new Update(MONEY, TRANSLATE, moneyChangeSixTwo), new Update(FLOOD_PROTECTION_INFRASTRUCTURE, TRANSLATE, floodProtectionSixTwo), new Update(APPROVAL, TRANSLATE, approvalChangeSixTwo)),
-        new Policy("Educate the population of the dangers of residing near the rivers in Jakarta and what they can do to allevaite the effects of floods. It will cost you $2000.", "Your people are glad that you tried to educate them about the dangers of floods. APPROVAL increases.", new Update(MONEY, TRANSLATE, moneyChangeSixThree), new Update(APPROVAL, TRANSLATE, approvalChangeSixThree)),
+        new Policy("Educate the population of the dangers of residing near the rivers in Jakarta and what they can do to protect themselves from the effects of floods. It will cost you $2000.", "Your people are glad that you tried to educate them about the dangers of floods. APPROVAL increases.", new Update(MONEY, TRANSLATE, moneyChangeSixThree), new Update(APPROVAL, TRANSLATE, approvalChangeSixThree)),
         new Policy("Do nothing", "Another flood occurs. More people are dead and your people are outraged. POPULATION and APPROVAL falls.", new Update(APPROVAL, TRANSLATE, -10), new Update(POPULATION, TRANSLATE, -2000))
     );
 
