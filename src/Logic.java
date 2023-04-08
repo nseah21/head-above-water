@@ -247,16 +247,16 @@ class Logic {
         sleep(500);
         System.out.println();
 
-        if (threshold > 0.55) {
+        if (threshold > 0.95) {
             System.out.println("***OH NO! A flood has occured!***\n");
             System.out.println("The severity level is... SMALL.\n");
-        } else if (threshold > 0.80) {
-            System.out.println("***OH NO! A flood has occured!***\n");
-            System.out.println("The severity level is... MODERATE.\n");
         } else if (threshold > 0.90) {
             System.out.println("***OH NO! A flood has occured!***\n");
+            System.out.println("The severity level is... MODERATE.\n");
+        } else if (threshold > 0.80) {
+            System.out.println("***OH NO! A flood has occured!***\n");
             System.out.println("The severity level is... SEVERE.\n");
-        } else if (threshold > 0.95) {
+        } else if (threshold > 0.55) {
             System.out.println("***OH NO! A flood has occured!***\n");
             System.out.println("The severity level is... DEVASTATING.\n");
         } else {
