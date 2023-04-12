@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Random;
+import java.math.*;
 
 class Logic {
     private Scanner scanner = new Scanner(System.in);
@@ -77,7 +78,7 @@ class Logic {
                 UI.announceScenarioAgain();
             }
             UI.printScenario(scenario);
-            execute(scenario.getScenarioEffect(), scheduler);  // <<-- CHANGE THIS RIGHT HERE
+            execute(scenario.getScenarioEffect(), scheduler);  
             while (scanner.hasNextLine()) {
                 String optionSelected = scanner.nextLine().toUpperCase();
                 if (isInvalidSelection(optionSelected)) {
@@ -235,12 +236,14 @@ class Logic {
         // Threshold which is the probability of flooding changes when greeneryLevel, riverCapacity or landSubsidence changes
         threshold *= floodProbabilitymultiplier;
 
+        double squaredThreshold = Math.pow(threshold, 2);
+
         // Since threshold already includes the multiplier effect from 3 factors, dont have to include them again 
         // floodProtection multiplier will decrease the effect of floods
-        double moneyDamage = -2000 * threshold * floodProtectionMultiplier;
-        double populationDamage = -1500 * threshold * floodProtectionMultiplier;
-        double approvalDamage = -15 * threshold * floodProtectionMultiplier;
-        double infrastructureDamage = -20 * threshold * floodProtectionMultiplier;
+        double moneyDamage = -2000 * squaredThreshold * floodProtectionMultiplier;
+        double populationDamage = -1500 * squaredThreshold * floodProtectionMultiplier;
+        double approvalDamage = -15 * squaredThreshold * floodProtectionMultiplier;
+        double infrastructureDamage = -20 * squaredThreshold * floodProtectionMultiplier;
 
         boolean flooded = true;
 
